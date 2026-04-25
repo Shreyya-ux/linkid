@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { Mail, Lock, User, Eye } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -97,41 +98,55 @@ export default function RegisterPage() {
 
                     {/* EMAIL SIGNUP */}
                     <form onSubmit={handleSubmit} className="space-y-3">
-                        <Input
-                            name="name"
-                            placeholder="Full name"
-                            required
-                        />
+                        
+  {/* --- Full Name --- */}
+  <div className="relative flex items-center mb-4">
+    <User className="absolute left-3 text-gray-400" size={20} /> 
+    <Input 
+      name="name"
+      placeholder="Full name"
+      required
+      className="pl-10 bg-[#1a1a1a] border-gray-800 focus:border-purple-500" 
+    />
+  </div>
 
-                        <Input
-                            name="email"
-                            type="email"
-                            placeholder="Email"
-                            required
-                        />
+  {/* --- Email --- */}
+  <div className="relative flex items-center mb-4">
+    <Mail className="absolute left-3 text-gray-400" width="20" />
+    <Input 
+      name="email"
+      type="email"
+      placeholder="Email"
+      required
+      className="pl-10 bg-[#1a1a1a] border-gray-800 focus:border-purple-500" 
+    />
+  </div>
 
-                        <Input
-                            name="password"
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            className={`${
-                                password && error ? "border-red-500 focus-visible:ring-red-500" : ""
-                            }`}
-                        />
-                        {password && error && (
-                        <p className="mt-2 text-sm text-red-500">
-                            {error}
-                        </p>
-                        )}
+  {/* --- Password --- */}
+  <div className="relative flex items-center">
+    <Lock className="absolute left-3 text-gray-400" width="20" />
+    <Input 
+      name="password"
+      type="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      required
+      className={`pl-10 pr-10 bg-[#1a1a1a] border-gray-800 focus:border-purple-500 ${password && error ? "border-red-500" : ""}`}
+    />
+    <Eye className="absolute right-3 text-gray-400 cursor-pointer hover:text-white" width="20" />
+  </div>
 
-                        <Button className="w-full" disabled={loading}>
-                            {loading ? "Creating account..." : "Signup with Email"}
-                        </Button>
-                    </form>
-                   
+  {password && error && (
+    <p className="mt-2 text-sm text-red-500">{error}</p>
+  )}
+
+  <Button className="w-full" disabled={loading} type="submit">
+    {loading ? "Creating account..." : "Signup with Email"}
+  </Button>
+</form>
+
+                            
                     
                    
                     {/* FOOTER */}
